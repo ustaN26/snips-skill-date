@@ -65,7 +65,7 @@ def intent_received(hermes, intent_message):
 
 		now = datetime.now(timezone('Europe/Paris'))
 
-		sentence += verbalise_day(now.date().isoweekday()) + " " + str(datetime.date().isoweekday()) + " " + str(now.day) + " " + verbalise_mounth(now.month) + " " + str(now.year)
+		sentence += verbalise_day(datetime.date().isoweekday()) + " " + str(datetime.date().isoweekday()) + " " + str(now.day) + " " + verbalise_mounth(now.month) + " " + str(now.year)
 		print(sentence)
 
 		hermes.publish_end_session(intent_message.session_id, sentence)

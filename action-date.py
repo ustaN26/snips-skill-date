@@ -8,33 +8,51 @@ MQTT_PORT = 1883
 MQTT_ADDR = "{}:{}".format(MQTT_IP_ADDR, str(MQTT_PORT))
 
 
-def verbalise_hour(i):
+def verbalise_day(i):
 	if i == 0:
-		return "minuit"
+		return "Lundi"
 	elif i == 1:
-		return "une heure"
-	elif i == 12:
-		return "midi"
-	elif i == 21:
-		return "vingt et une heures"
+		return "Mardi"
+	elif i == 2:
+		return "Mercredi"
+	elif i == 3:
+		return "Jeudi"
+	elif i == 4:
+		return "Vendredi"
+	elif i == 5:
+		return "Samedi"
+	elif i == 6:
+		return "Dimanche"
 	else:
-		return "{0} heures".format(str(i)) 
+		return "erreur"
 
-def verbalise_minute(i):
-	if i == 0:
-		return ""
-	elif i == 1:
-		return "une"
-	elif i == 21:
-		return "vingt et une"
-	elif i == 31:
-		return "trente et une"
-	elif i == 41:
-		return "quarante et une"
-	elif i == 51:
-		return "cinquante et une"
+def verbalise_mounth(i):
+	if i == 1:
+		return "Janvier"
+	elif i == 2:
+		return "Fevrier"
+	elif i == 3:
+		return "Mars"
+	elif i == 4:
+		return "Avril"
+	elif i == 5:
+		return "Mai"
+	elif i == 6:
+		return "Juin"
+	elif i == 7:
+		return "Juillet"
+	elif i == 8:
+		return "Aout"
+	elif i == 9:
+		return "Septembre"
+	elif i == 10:
+		return "Octobre"
+	elif i == 11:
+		return "Novembre"
+	elif i == 12:
+		return "Decembre"
 	else:
-		return "{0}".format(str(i)) 
+		return "erreur"
 
 
 def intent_received(hermes, intent_message):
@@ -42,12 +60,13 @@ def intent_received(hermes, intent_message):
 
 	if intent_message.intent.intent_name == 'ustaN:date':
 
-		sentence = 'Il est '
+		sentence = 'Nous sommes le '
 		print(intent_message.intent.intent_name)
 
 		now = datetime.now(timezone('Europe/Paris'))
 
-		sentence += verbalise_hour(now.hour) + " " + verbalise_minute(now.minute)
+		sentence += verbalise_day(now.weekday) + " " + str(now.day) + " " + verbalise_mounth(now.month) + " " + str(now.year)
+		sentence += str("LOGS ") + str(now.weekday) + " " + str(now.month)
 		print(sentence)
 
 		hermes.publish_end_session(intent_message.session_id, sentence)

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from hermes_python.hermes import Hermes
-from datetime import datetime
+from datetime import date
 from pytz import timezone
 
 MQTT_IP_ADDR = "localhost"

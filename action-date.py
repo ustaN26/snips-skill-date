@@ -9,19 +9,19 @@ MQTT_ADDR = "{}:{}".format(MQTT_IP_ADDR, str(MQTT_PORT))
 
 
 def verbalise_day(i):
-	if i == 0:
+	if i == 1:
 		return "Lundi"
-	elif i == 1:
-		return "Mardi"
 	elif i == 2:
-		return "Mercredi"
+		return "Mardi"
 	elif i == 3:
-		return "Jeudi"
+		return "Mercredi"
 	elif i == 4:
-		return "Vendredi"
+		return "Jeudi"
 	elif i == 5:
-		return "Samedi"
+		return "Vendredi"
 	elif i == 6:
+		return "Samedi"
+	elif i == 7:
 		return "Dimanche"
 	else:
 		return "erreur"
@@ -66,7 +66,6 @@ def intent_received(hermes, intent_message):
 		now = datetime.now(timezone('Europe/Paris'))
 
 		sentence += verbalise_day(now.weekday) + " " + str(now.day) + " " + verbalise_mounth(now.month) + " " + str(now.year)
-		sentence += str("LOGS ") + str(now.weekday) + " " + str(now.month)
 		print(sentence)
 
 		hermes.publish_end_session(intent_message.session_id, sentence)

@@ -67,7 +67,8 @@ def intent_received(hermes, intent_message):
 
 		sentence += verbalise_day(now.date().isoweekday()) + " " + str(now.day) + " " + verbalise_mounth(now.month) + " " + str(now.year)
 		print(sentence)
-		python3 /adds/tare.py
+		import subprocess
+		subprocess.call("python /adds/tare.py")
 
 		hermes.publish_end_session(intent_message.session_id, sentence)
 

@@ -2,7 +2,6 @@
 from hermes_python.hermes import Hermes
 from datetime import datetime
 from pytz import timezone
-import os
 
 MQTT_IP_ADDR = "localhost"
 MQTT_PORT = 1883
@@ -68,8 +67,6 @@ def intent_received(hermes, intent_message):
 
 		sentence += verbalise_day(now.date().isoweekday()) + " " + str(now.day) + " " + verbalise_mounth(now.month) + " " + str(now.year)
 		print(sentence)
-		
-		os.system("python /adds/tare.py")
 		
 		hermes.publish_end_session(intent_message.session_id, sentence)
 

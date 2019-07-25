@@ -69,20 +69,16 @@ def intent_received(hermes, intent_message):
 		sentence += verbalise_day(now.date().isoweekday()) + " " + str(now.day) + " " + verbalise_mounth(now.month) + " " + str(now.year)
 		print(sentence)
 
-		try:
-			ser = serial.Serial(
-				port='/dev/ttyACM0',
-				baudrate = 9600,
-				parity=serial.PARITY_NONE,
-				stopbits=serial.STOPBITS_ONE,
-				bytesize=serial.EIGHTBITS,
-				timeout=1
-			)
-			ser.write(serial.to_bytes([0x01,0x09,0x30,0x30,0x10,0x30,0x34,0x4D,0x0D,0x0A]))
-			ser.close()
-		except:
-			ser.close()
-
+		ser = serial.Serial(
+			port='/dev/ttyACM0',
+			baudrate = 9600,
+			parity=serial.PARITY_NONE,
+			stopbits=serial.STOPBITS_ONE,
+			bytesize=serial.EIGHTBITS,
+			timeout=1
+		)
+		ser.write(serial.to_bytes([0x01,0x09,0x30,0x30,0x10,0x30,0x34,0x4D,0x0D,0x0A]))
+		ser.close()
 		hermes.publish_end_session(intent_message.session_id, sentence)
 
 with Hermes(MQTT_ADDR) as h:
